@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finova CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F1EA;--panel:#FBF9F4;--ink:#1B2420;--mute:#66706B;--line:#DDD8CB;--acc:#0F5C4D;--on:#fff;--sun:#B86E12;--bad:#A8402F;--ok:#2E7D4F;--side:#16302A;--sideink:#D6E3DD;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101512;--panel:#181F1B;--ink:#E8EDE6;--mute:#93A09A;--line:#2B3630;--acc:#4FB79C;--on:#0B1612;--sun:#E0A24C;--bad:#E08572;--ok:#6CC08D;--side:#0B100E;--sideink:#B9C9C1}}
+:root[data-theme="dark"]{--bg:#101512;--panel:#181F1B;--ink:#E8EDE6;--mute:#93A09A;--line:#2B3630;--acc:#4FB79C;--on:#0B1612;--sun:#E0A24C;--bad:#E08572;--ok:#6CC08D;--side:#0B100E;--sideink:#B9C9C1}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,.num{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--ink)}.btn.p{background:var(--acc);color:var(--on);border-color:var(--acc)}
+input,select,textarea{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.hide{display:none!important}.mute{color:var(--mute)}.sm{font-size:12px}
+#login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.lw{background:var(--side);color:var(--sideink);padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+.lw h1{font-size:40px;line-height:1.1;color:#fff;max-width:14ch}
+.lf{padding:48px;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:440px;margin:auto;width:100%}
+.roles{display:grid;gap:6px}.roles button{text-align:left;display:flex;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-family:Fraunces,serif;font-size:20px;color:inherit}
+#app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}#app.n{grid-template-columns:60px 1fr}
+aside.sb{background:var(--side);color:var(--sideink);padding:16px 10px;position:sticky;top:0;height:100vh;overflow:auto}
+.n .lb,.n .gh,.n .who{display:none}
+.gh{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;padding:14px 10px 4px;cursor:pointer;display:flex;justify-content:space-between}
+.ni{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:6px;cursor:pointer;position:relative}
+.ni:hover{background:rgba(255,255,255,.07)}.ni.on{background:rgba(255,255,255,.12);color:#fff;box-shadow:inset 2px 0 0 #E0A24C}
+.ni svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dot{width:6px;height:6px;border-radius:50%;background:#E0A24C;position:absolute;right:10px}
+main{min-width:0}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:10px;padding:10px 24px;align-items:center}
+.top input{max-width:340px}.top select{width:auto}
+.pg{padding:24px;max-width:1400px}
+.hd{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.hd h1{font-size:30px}.acts{display:flex;gap:8px;flex-wrap:wrap}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h2{font-size:17px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.g2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}
+.k .num{font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums}.k{display:flex;flex-direction:column;gap:2px}
+.k .r{display:flex;justify-content:space-between;align-items:flex-end}.sp{color:var(--acc)}
+.up{color:var(--ok)}.dn{color:var(--bad)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th{text-align:left;font-weight:500;font-size:12px;color:var(--mute);padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}tr:last-child td{border:0}
+tbody tr:hover{background:color-mix(in srgb,var(--acc) 6%,transparent)}
+.ch{display:inline-flex;gap:6px;align-items:center;font-size:12px}.ch::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--mute))}
+.bar{display:grid;grid-template-columns:130px 1fr 40px;gap:8px;align-items:center;margin:7px 0;font-size:13px}
+.bar i{display:block;height:8px;background:var(--acc);border-radius:2px;min-width:2px}.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.tb{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.tb input{max-width:260px}.tb select{width:auto}
+.kb{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px}.col{min-width:230px;flex:1;background:color-mix(in srgb,var(--line) 35%,transparent);border-radius:10px;padding:8px}
+.col h3{font-size:12px;margin:4px 6px 8px;display:flex;justify-content:space-between;color:var(--mute);font-weight:500}
+.cd{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px;margin-bottom:8px;cursor:grab}.cd b{font-weight:500}
+.tl div{padding:8px 0 8px 14px;border-left:1px solid var(--line);position:relative}.tl div::before{content:"";position:absolute;left:-4px;top:14px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.pri{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}.pri:last-child{border:0}.pri .num{font-size:22px}
+#dr,#md{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:40;display:flex;justify-content:flex-end}
+#md{justify-content:center;align-items:center;padding:16px}
+.pn{background:var(--bg);width:min(440px,100%);height:100%;padding:24px;overflow:auto}#md .pn{height:auto;max-height:100%;border-radius:12px;width:min(560px,100%)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fg label{font-size:12px;color:var(--mute);display:block}.fg .w{grid-column:1/-1}
+.er{color:var(--bad);font-size:12px;min-height:16px}
+#ts{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;z-index:50}
+.stub{max-width:560px;margin-top:40px}
+@media(max-width:900px){#login{grid-template-columns:1fr}.lw{display:none}#app,#app.n{grid-template-columns:1fr}aside.sb{position:static;height:auto;display:flex;overflow-x:auto;padding:8px}.sb .gh,.sb .who{display:none}.sb .lb{display:none}.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}.pg{padding:16px}.top{padding:10px 16px;flex-wrap:wrap}}
+@media(max-width:520px){.g4{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:no-preference){.card,.cd{transition:border-color .15s}.card:hover{border-color:var(--acc)}}
+</style></head><body>
+<div id="login"></div><div id="app" class="hide"></div><div id="dr" class="hide"></div><div id="md" class="hide"></div><div id="ts" class="hide"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let seed=11;const rnd=()=>(seed=seed*16807%2147483647)/2147483647,pick=a=>a[Math.floor(rnd()*a.length)];
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN'),T=new Date(),iso=d=>d.toISOString().slice(0,10),ad=n=>iso(new Date(T.getTime()+n*864e5));
+const B=['Pune Camp','Nashik Road','Indore Vijay Nagar','Coimbatore RS Puram'],RM=['Meera Kulkarni','Arjun Deshmukh','Farah Sheikh','Karthik Raman','Neha Joshi'];
+const PR=['Savings Account','Fixed Deposit','Recurring Deposit','Personal Loan','MSME Loan','Gold Loan'],ST=['New','Contacted','Interested','Qualified','Documentation Pending','Converted','Lost'];
+const SRC=['Branch walk-in','Referral','Campaign','Field visit','Website'],F=['Aarav','Ishita','Vikram','Sunita','Rahul','Lakshmi','Sanjay','Pooja','Manoj','Anjali','Deepak','Revati'],L=['Sharma','Iyer','Pawar','Menon','Gupta','Naik','Reddy','Kulkarni','Verma','Bhatt'];
+const SC={New:'#66706B',Contacted:'#2F6FA8',Interested:'#2F6FA8',Qualified:'#B86E12','Documentation Pending':'#B86E12',Converted:'#2E7D4F',Lost:'#A8402F',Verified:'#2E7D4F',Pending:'#B86E12','Under Review':'#2F6FA8',Rejected:'#A8402F',Escalated:'#A8402F'};
+let leads=Array.from({length:28},(_,i)=>({id:'LD-'+(1001+i),name:pick(F)+' '+pick(L),phone:'9'+String(Math.floor(rnd()*1e9)).padStart(9,'0'),product:pick(PR),src:pick(SRC),rm:pick(RM),branch:pick(B),status:ST[Math.floor(rnd()*7)],pri:pick(['High','Medium','Low']),val:(Math.floor(rnd()*9)+1)*50000,next:ad(Math.floor(rnd()*9)-2)}));
+let custs=Array.from({length:18},(_,i)=>({id:'CU-'+(2001+i),name:pick(F)+' '+pick(L),phone:'8'+String(Math.floor(rnd()*1e9)).padStart(9,'0'),seg:pick(['Salaried','Small business','Farmer','Self-employed','Senior citizen']),branch:pick(B),rm:pick(RM),kyc:pick(['Verified','Verified','Verified','Pending','Under Review','Rejected','Escalated']),prods:Math.ceil(rnd()*3),last:pick(['Today','Yesterday','3 days ago','Last week'])}));
+let acts=[['New lead created','Referral lead added at Pune Camp','12 min ago'],['KYC submitted','Documents received for CU-2004','48 min ago'],['Follow-up completed','Call with a Fixed Deposit enquiry','2 hr ago'],['Service request resolved','Statement request closed, Nashik Road','Yesterday']];
+const U={admin:{n:'Anita Rao',r:'Bank Administrator',a:'*'},manager:{n:'Rohan Patil',r:'Branch Manager',a:'ov,leads,cust,kyc,dep,loan,svc,task,camp,br,rep,aud'},rm:{n:'Meera Kulkarni',r:'Relationship Manager',a:'ov,leads,cust,dep,loan,task'},ops:{n:'Imran Shaikh',r:'Operations Officer',a:'ov,cust,kyc,svc,task'},cs:{n:'Divya Nair',r:'Customer Service Executive',a:'ov,cust,svc,task'}};
+const NAV=[['Workspace',[['ov','Overview','M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z'],['leads','Leads','M3 4h18l-7 8v7l-4 2v-9z'],['cust','Customers','M12 12a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 4-6 8-6s8 2 8 6']]],
+['Operations',[['kyc','Onboarding & KYC','M5 3h14v18H5zM9 8h6M9 12h6M9 16h4',1],['dep','Deposit Enquiries','M3 9l9-6 9 6M5 9v10M10 9v10M14 9v10M19 9v10M3 21h18'],['loan','Loan Enquiries','M12 2v20M17 6H9.5a3 3 0 000 6h5a3 3 0 010 6H6'],['svc','Service Requests','M4 5h16v11H9l-5 4z'],['task','Tasks & Follow-ups','M4 12l5 5L20 6',1]]],
+['Growth',[['camp','Campaigns','M3 11v3l12 6V5zM18 8a5 5 0 010 8'],['br','Branches & Employees','M4 21V8l8-5 8 5v13zM9 21v-6h6v6']]],
+['Insight',[['rep','Reports & Analytics','M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-9'],['aud','Audit Activity','M12 7v5l3 2M3 12a9 9 0 109-9'],['set','Settings','M4 6h16M4 12h16M4 18h16']]]];
+let S={u:null,uid:'',page:'ov',branch:'',q:'',st:'',sort:['id',1],pg:0,view:'table',sel:new Set(),open:{},nar:0,rng:'d',kyc:''};
+const mark='<svg width="26" height="26" viewBox="0 0 26 26"><rect width="26" height="26" rx="6" fill="#E0A24C"/><path d="M8 19V7h10M8 13h7" stroke="#16302A" stroke-width="2.4" fill="none"/></svg>';
+function toast(m){const t=$('#ts');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add('hide'),2600)}
+function showLogin(err){$('#app').classList.add('hide');$('#login').classList.remove('hide');$('#login').innerHTML=`<div class="lw"><div class="logo">${mark}Finova CRM</div><div><h1>One workspace for every customer relationship.</h1><p>Leads, onboarding and follow-ups for a small finance bank branch network.</p></div><div class="sm">Demo only. All people, amounts and records are synthetic.</div></div>
+<div class="lf"><h2 style="font-size:26px">Sign in</h2><div><label class="sm mute">Email</label><input id="em" value="admin@finova.demo"></div><div><label class="sm mute">Password</label><input id="pw" type="password" value="demo123"></div>
+<div class="er">${err||''}</div><button class="btn p" onclick="signIn($('#em').value.split('@')[0],$('#pw').value)">Sign in</button>
+<div class="sm mute" style="margin-top:8px">Demo access (password for every account: demo123)</div><div class="roles">${Object.entries(U).map(([k,u])=>`<button class="btn" onclick="signIn('${k}','demo123')"><span>${u.r}</span><span class="mute sm">${k}@finova.demo</span></button>`).join('')}</div></div>`}
+function signIn(id,pw){if(!U[id]||pw!=='demo123')return showLogin('Email or password not recognised.');S.uid=id;S.u=U[id];S.page='ov';S.branch='';$('#login').classList.add('hide');$('#app').classList.remove('hide');render()}
+const can=k=>S.u.a==='*'||S.u.a.split(',').includes(k);
+const scoped=a=>a.filter(x=>(!S.branch||x.branch===S.branch)&&(S.uid!=='rm'||x.rm===S.u.n));
+const fac=()=>(S.branch?.25:1)*(S.uid==='rm'?.1:1);
+const spark=(a,w=96,h=28)=>{const mx=Math.max(...a),mn=Math.min(...a);return `<svg class="sp" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.6" points="${a.map((v,i)=>(i/(a.length-1)*w).toFixed(1)+','+(h-3-(v-mn)/(mx-mn||1)*(h-6)).toFixed(1)).join(' ')}"/></svg>`};
+const SPK=Array.from({length:8},()=>Array.from({length:10},()=>Math.round(20+rnd()*30)));
+const ACQ={d:Array.from({length:14},()=>Math.round(30+rnd()*40)),w:Array.from({length:12},()=>Math.round(220+rnd()*140)),m:Array.from({length:12},()=>Math.round(900+rnd()*500))};
+const chip=s=>`<span class="ch" style="--c:${SC[s]||'#66706B'}">${esc(s)}</span>`;
+function render(){const a=$('#app');a.className=S.nar?'n':'';a.innerHTML=`<aside class="sb"><div class="logo" style="padding:4px 8px 12px">${mark}<span class="lb">Finova CRM</span></div>
+${NAV.map(([g,it])=>{const v=it.filter(i=>can(i[0]));if(!v.length)return'';const o=S.open[g]!==false;return `<div class="gh" onclick="S.open['${g}']=${!o};render()"><span>${g}</span><span>${o?'−':'+'}</span></div>`+(o||S.nar?v.map(i=>`<div class="ni ${S.page===i[0]?'on':''}" title="${i[1]}" onclick="go('${i[0]}')"><svg viewBox="0 0 24 24"><path d="${i[2]}"/></svg><span class="lb">${i[1]}</span>${i[3]?'<span class="dot"></span>':''}</div>`).join(''):'')}).join('')}
+<div class="ni" title="Collapse" onclick="S.nar=!S.nar;render()" style="margin-top:12px"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg><span class="lb">Collapse</span></div>
+<div class="who sm" style="margin-top:16px;padding:10px;border-top:1px solid rgba(255,255,255,.12)"><b style="color:#fff;font-weight:500">${S.u.n}</b><br>${S.u.r}<br><a href="#" style="color:#E0A24C" onclick="showLogin();return false">Sign out</a></div></aside>
+<main><div class="top"><input id="gs" placeholder="Search leads and customers   ( / )" value="${esc(S.q)}" onkeydown="if(event.key==='Enter'){S.q=this.value;S.pg=0;go(can('leads')?'leads':'cust')}">
+<select onchange="S.branch=this.value;S.pg=0;render()"><option value="">All branches</option>${B.map(b=>`<option ${S.branch===b?'selected':''}>${b}</option>`).join('')}</select><span style="flex:1"></span>
+<button class="btn" onclick="const r=document.documentElement;r.dataset.theme=(r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches))?'light':'dark'">Theme</button></div>
+<div class="pg">${page()}</div></main>`}
+function go(p){S.page=p;S.pg=0;S.sel.clear();render();scrollTo(0,0)}
+function page(){if(!can(S.page))return'<p>No access.</p>';return {ov:dash,leads:leadsPage,cust}[S.page]?.()||stub()}
+function stub(){const n=NAV.flatMap(g=>g[1]).find(i=>i[0]===S.page);return `<div class="hd"><div><div class="mute sm">Workspace / ${n[1]}</div><h1>${n[1]}</h1></div></div><div class="card stub"><h2>Not in this first build</h2><p class="mute">The first build covers sign-in by role, the overview, the lead pipeline and the customer list. This module is next in line.</p><button class="btn" onclick="go('ov')">Back to overview</button></div>`}
+function dash(){const l=scoped(leads),c=scoped(custs),f=fac(),act=l.filter(x=>!['Converted','Lost'].includes(x.status)),td=iso(T),due=act.filter(x=>x.next===td).length,od=act.filter(x=>x.next<td).length;
+const kc=k=>Math.round({Verified:9120,Pending:612,'Under Review':284,Rejected:96,Escalated:41}[k]*f)+c.filter(x=>x.kyc===k).length,pk=kc('Pending')+kc('Under Review');
+const K=[['Total customers',Math.round(12480*f)+c.length,'+2.4%',1],['Active leads',Math.round(940*f)+act.length,'+5.1%',1],['New customers this month',Math.round(312*f)+c.filter(x=>x.last==='Today').length,'+8.7%',1],['Pending KYC',pk,'−3.2%',0],['Loan enquiries',Math.round(186*f)+l.filter(x=>/Loan/.test(x.product)).length,'+4.0%',1],['Deposit enquiries',Math.round(402*f)+l.filter(x=>!/Loan/.test(x.product)).length,'+6.3%',1],['Follow-ups due today',due,'',1],['Open service requests',Math.round(64*f),'−1.8%',0]];
+const fn=ST.map(s=>[s,Math.round({New:210,Contacted:170,Interested:130,Qualified:96,'Documentation Pending':64,Converted:48,Lost:52}[s]*f)+l.filter(x=>x.status===s).length]),mx=Math.max(...fn.map(x=>x[1]));
+const mix=PR.map(p=>[p,Math.round(60*f)+l.filter(x=>x.product===p).length]),mm=Math.max(...mix.map(x=>x[1])),ks=['Verified','Pending','Under Review','Rejected','Escalated'],kt=ks.reduce((s,k)=>s+kc(k),0),ac=ACQ[S.rng],am=Math.max(...ac);
+const g=T.getHours()<12?'morning':T.getHours()<17?'afternoon':'evening';
+return `<div class="hd"><div><div class="mute sm">${T.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>Good ${g}, ${S.u.n.split(' ')[0]}</h1><div class="mute">Here’s what’s happening across your banking relationships today.</div></div><div class="acts"><button class="btn" onclick="toast('Report export is simulated in this demo')">Download report</button><button class="btn p" onclick="newLead()">Create new lead</button></div></div>
+<div class="g4">${K.map((k,i)=>`<div class="card k"><span class="mute sm">${k[0]}</span><div class="r"><span class="num">${k[1].toLocaleString('en-IN')}</span>${spark(SPK[i])}</div><span class="sm ${k[3]?'up':'dn'}">${k[2]||'Due today'} ${k[2]?'vs last month':''}</span></div>`).join('')}</div>
+<div class="g2"><div class="card"><div style="display:flex;justify-content:space-between"><h2>New customer registrations</h2><div class="acts">${[['d','Daily'],['w','Weekly'],['m','Monthly']].map(([k,n])=>`<button class="btn ${S.rng===k?'p':''}" onclick="S.rng='${k}';render()">${n}</button>`).join('')}</div></div>
+<svg viewBox="0 0 600 160" width="100%" role="img" aria-label="Registrations chart"><line x1="0" x2="600" y1="150" y2="150" stroke="var(--line)"/>${ac.map((v,i)=>{const w=600/ac.length;return `<rect x="${i*w+4}" y="${150-v/am*140}" width="${w-8}" height="${v/am*140}" fill="var(--acc)" opacity="${i===ac.length-1?1:.55}"><title>${v}</title></rect>`}).join('')}</svg></div>
+<div class="card"><h2>Today’s priorities</h2><div class="pri" onclick="go('leads')"><span>Follow-ups due today</span><span class="num">${due}</span></div><div class="pri" onclick="go('leads')"><span>Overdue follow-ups</span><span class="num ${od?'dn':''}">${od}</span></div><div class="pri"><span>KYC reviews pending</span><span class="num">${kc('Under Review')}</span></div><div class="pri"><span>High-priority service requests</span><span class="num">${Math.max(1,Math.round(7*f))}</span></div><div class="sm mute">Demo suggestion: start with overdue follow-ups.</div></div></div>
+<div class="g3"><div class="card"><h2>Lead funnel</h2>${fn.map(x=>`<div class="bar"><span>${x[0]}</span><span><i style="width:${x[1]/mx*100}%"></i></span><span>${x[1]}</span></div>`).join('')}</div>
+<div class="card"><h2>Product enquiries</h2>${mix.map(x=>`<div class="bar"><span>${x[0]}</span><span><i style="width:${x[1]/mm*100}%"></i></span><span>${x[1]}</span></div>`).join('')}</div>
+<div class="card"><h2>KYC status</h2><div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-bottom:12px">${ks.map(k=>`<i style="width:${kc(k)/kt*100}%;background:${SC[k]}"></i>`).join('')}</div>${ks.map(k=>`<div class="bar" style="grid-template-columns:1fr auto"><span>${chip(k)}</span><span>${kc(k).toLocaleString('en-IN')}</span></div>`).join('')}</div></div>
+<div class="card" style="margin-top:12px"><h2>Recent activity</h2><div class="tl">${acts.slice(0,6).map(a=>`<div><b style="font-weight:500">${esc(a[0])}</b> <span class="mute">${esc(a[1])}</span> <span class="sm mute">· ${a[2]}</span></div>`).join('')}</div></div>`}
+function leadsF(){let l=scoped(leads);const q=S.q.toLowerCase();if(q)l=l.filter(x=>(x.name+x.id+x.phone+x.product).toLowerCase().includes(q));if(S.st)l=l.filter(x=>x.status===S.st);const[k,d]=S.sort;return l.sort((a,b)=>(a[k]>b[k]?1:a[k]<b[k]?-1:0)*d)}
+function leadsPage(){const l=leadsF(),A=scoped(leads),pp=10,pgs=Math.max(1,Math.ceil(l.length/pp)),rows=l.slice(S.pg*pp,S.pg*pp+pp),cnt=s=>A.filter(x=>x.status===s).length;
+const H=[['id','Lead ID'],['name','Customer'],['phone','Mobile'],['product','Product'],['rm','Relationship manager'],['branch','Branch'],['status','Status'],['pri','Priority'],['next','Next follow-up']];
+return `<div class="hd"><div><div class="mute sm">Workspace / Leads</div><h1>Leads</h1></div><div class="acts"><button class="btn" onclick="csv()">Export CSV</button><button class="btn p" onclick="newLead()">Create lead</button></div></div>
+<div class="g4" style="margin-bottom:12px">${[['Total',A.length],['New',cnt('New')],['Qualified',cnt('Qualified')],['Converted',cnt('Converted')]].map(x=>`<div class="card k"><span class="mute sm">${x[0]} leads</span><span class="num">${x[1]}</span></div>`).join('')}</div>
+<div class="tb"><input placeholder="Search name, ID, mobile" value="${esc(S.q)}" oninput="S.q=this.value;S.pg=0;clearTimeout(S.t);S.t=setTimeout(()=>{render();const e=$('.tb input');e.focus();e.setSelectionRange(99,99)},250)"><select onchange="S.st=this.value;S.pg=0;render()"><option value="">All statuses</option>${ST.map(s=>`<option ${S.st===s?'selected':''}>${s}</option>`).join('')}</select>
+<select onchange="S.view=this.value;render()"><option value="table" ${S.view==='table'?'selected':''}>Table view</option><option value="board" ${S.view==='board'?'selected':''}>Pipeline view</option></select>
+${S.view==='table'?`<select id="bulk"><option value="">Bulk assign to…</option>${RM.map(r=>`<option>${r}</option>`).join('')}</select><button class="btn" onclick="bulk()">Assign ${S.sel.size||''}</button>`:''}</div>
+${S.view==='board'?`<div class="kb">${ST.map(s=>`<div class="col" ondragover="event.preventDefault()" ondrop="drop(event,'${s}')"><h3><span>${s}</span><span>${l.filter(x=>x.status===s).length}</span></h3>${l.filter(x=>x.status===s).map(x=>`<div class="cd" draggable="true" ondragstart="event.dataTransfer.setData('t','${x.id}')" onclick="drawer('${x.id}')"><b>${esc(x.name)}</b><div class="sm mute">${x.product}</div><div class="sm">${inr(x.val)} · ${x.rm.split(' ')[0]}</div><div class="sm mute">Follow-up ${x.next}</div></div>`).join('')}</div>`).join('')}</div><div class="sm mute">Drag cards between stages to update status.</div>`
+:`<div class="tw"><table><thead><tr><th></th>${H.map(h=>`<th onclick="srt('${h[0]}')">${h[1]}${S.sort[0]===h[0]?(S.sort[1]>0?' ↑':' ↓'):''}</th>`).join('')}</tr></thead><tbody>${rows.map(x=>`<tr onclick="drawer('${x.id}')"><td onclick="event.stopPropagation()"><input type="checkbox" style="width:auto" ${S.sel.has(x.id)?'checked':''} onchange="this.checked?S.sel.add('${x.id}'):S.sel.delete('${x.id}')"></td><td>${x.id}</td><td>${esc(x.name)}</td><td>${x.phone}</td><td>${x.product}</td><td>${x.rm}</td><td>${x.branch}</td><td>${chip(x.status)}</td><td>${x.pri}</td><td>${x.next}</td></tr>`).join('')||'<tr><td colspan="10" class="mute">No leads match.</td></tr>'}</tbody></table></div>
+<div class="tb" style="margin-top:10px;align-items:center"><button class="btn" ${S.pg?'':'disabled'} onclick="S.pg--;render()">Previous</button><span class="mute">Page ${S.pg+1} of ${pgs} · ${l.length} leads</span><button class="btn" ${S.pg<pgs-1?'':'disabled'} onclick="S.pg++;render()">Next</button></div>`}`}
+function srt(k){S.sort=[k,S.sort[0]===k?-S.sort[1]:1];render()}
+function bulk(){const r=$('#bulk').value;if(!r||!S.sel.size)return toast('Pick leads and a relationship manager first');leads.forEach(x=>{if(S.sel.has(x.id))x.rm=r});acts.unshift(['Leads reassigned',S.sel.size+' leads assigned to '+r,'Just now']);S.sel.clear();toast('Leads reassigned');render()}
+function drop(e,s){e.preventDefault();const x=leads.find(l=>l.id===e.dataTransfer.getData('t'));if(x&&x.status!==s){x.status=s;acts.unshift(['Lead status changed',x.id+' moved to '+s,'Just now']);toast(x.id+' moved to '+s);render()}}
+function csv(){const l=leadsF(),t=['id,name,phone,product,rm,branch,status,priority,next_followup',...l.map(x=>[x.id,x.name,x.phone,x.product,x.rm,x.branch,x.status,x.pri,x.next].join(','))].join('\n');$('#md').classList.remove('hide');$('#md').innerHTML=`<div class="pn"><h2>Export CSV</h2><p class="mute sm">Downloads are disabled in this preview. Copy the rows below.</p><textarea rows="12" onfocus="this.select()">${esc(t)}</textarea><div class="acts" style="margin-top:12px"><button class="btn" onclick="closeM()">Close</button></div></div>`}
+function closeM(){$('#md').classList.add('hide');$('#dr').classList.add('hide')}
+function drawer(id){const x=leads.find(l=>l.id===id);$('#dr').classList.remove('hide');$('#dr').onclick=e=>{if(e.target.id==='dr')closeM()};$('#dr').innerHTML=`<div class="pn"><div class="mute sm">${x.id}</div><h2 style="font-size:24px">${esc(x.name)}</h2><p>${chip(x.status)}</p>
+<div class="card" style="margin-bottom:12px"><div class="sm mute">Mobile</div>${x.phone}<div class="sm mute" style="margin-top:8px">Product interest</div>${x.product}<div class="sm mute" style="margin-top:8px">Opportunity (demo value)</div>${inr(x.val)}<div class="sm mute" style="margin-top:8px">Assigned to</div>${x.rm}, ${x.branch}<div class="sm mute" style="margin-top:8px">Next follow-up</div>${x.next}</div>
+<label class="sm mute">Status</label><select onchange="x_('${id}',this.value)">${ST.map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select>
+<div class="acts" style="margin-top:12px"><button class="btn p" ${x.status==='Converted'?'disabled':''} onclick="conv('${id}')">Convert to customer</button><button class="btn" onclick="closeM()">Close</button></div></div>`}
+function x_(id,s){const x=leads.find(l=>l.id===id);x.status=s;acts.unshift(['Lead status changed',id+' set to '+s,'Just now']);toast('Status updated');render();drawer(id)}
+function conv(id){const x=leads.find(l=>l.id===id);x.status='Converted';custs.unshift({id:'CU-'+(2001+custs.length),name:x.name,phone:x.phone,seg:'Salaried',branch:x.branch,rm:x.rm,kyc:'Pending',prods:1,last:'Today'});acts.unshift(['Customer onboarded',x.name+' converted from '+id,'Just now']);toast('Converted. KYC case marked Pending.');closeM();render()}
+function newLead(){$('#md').classList.remove('hide');$('#md').innerHTML=`<div class="pn"><h2 style="font-size:24px;margin-bottom:12px">Create lead</h2><div class="fg"><div class="w"><label>Full name *</label><input id="f1"></div><div><label>Mobile number *</label><input id="f2" inputmode="numeric" maxlength="10" placeholder="10 digits, starts 6–9"></div><div><label>Email</label><input id="f3"></div><div><label>City</label><input id="f4"></div><div><label>Expected value (₹)</label><input id="f5" type="number" value="100000"></div>
+<div><label>Product interest</label><select id="f6">${PR.map(p=>`<option>${p}</option>`).join('')}</select></div><div><label>Lead source</label><select id="f7">${SRC.map(p=>`<option>${p}</option>`).join('')}</select></div><div><label>Branch</label><select id="f8">${B.map(p=>`<option>${p}</option>`).join('')}</select></div><div><label>Relationship manager</label><select id="f9">${RM.map(p=>`<option ${p===S.u.n?'selected':''}>${p}</option>`).join('')}</select></div><div><label>Priority</label><select id="f10"><option>Medium</option><option>High</option><option>Low</option></select></div>
+<div class="w"><label>Notes</label><textarea id="f11" rows="2"></textarea></div><div class="w"><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="f12" style="width:auto"> Customer consents to be contacted *</label></div></div><div class="er" id="er"></div><div class="acts"><button class="btn p" onclick="saveLead()">Save lead</button><button class="btn" onclick="closeM()">Cancel</button></div></div>`}
+function saveLead(){const v=i=>$('#f'+i).value.trim(),e=m=>($('#er').textContent=m,0);if(!v(1))return e('Full name is required.');if(!/^[6-9]\d{9}$/.test(v(2)))return e('Enter a valid 10-digit Indian mobile number starting 6–9.');if(v(3)&&!/^\S+@\S+\.\S+$/.test(v(3)))return e('Email looks invalid.');if(!$('#f12').checked)return e('Contact consent is required.');
+const id='LD-'+(1001+leads.length);leads.unshift({id,name:v(1),phone:v(2),product:v(6),src:v(7),rm:v(9),branch:v(8),status:'New',pri:v(10),val:+v(5)||0,next:ad(1)});acts.unshift(['New lead created',v(1)+' added as '+id,'Just now']);closeM();toast('Lead '+id+' created');S.q='';render()}
+function cust(){let c=scoped(custs);const q=S.q.toLowerCase();if(q)c=c.filter(x=>(x.name+x.id).toLowerCase().includes(q));if(S.kyc)c=c.filter(x=>x.kyc===S.kyc);
+return `<div class="hd"><div><div class="mute sm">Workspace / Customers</div><h1>Customers</h1><div class="mute">Mobile numbers are masked. All records are synthetic.</div></div></div><div class="tb"><input placeholder="Search name or ID" value="${esc(S.q)}" onchange="S.q=this.value;render()"><select onchange="S.kyc=this.value;render()"><option value="">All KYC statuses</option>${['Verified','Pending','Under Review','Rejected','Escalated'].map(s=>`<option ${S.kyc===s?'selected':''}>${s}</option>`).join('')}</select></div>
+<div class="tw"><table><thead><tr>${['Customer ID','Name','Mobile','Segment','Branch','Relationship manager','KYC','Products','Last interaction'].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${c.map(x=>`<tr><td>${x.id}</td><td>${esc(x.name)}</td><td>XXXXXX${x.phone.slice(-4)}</td><td>${x.seg}</td><td>${x.branch}</td><td>${x.rm}</td><td>${chip(x.kyc)}</td><td>${x.prods}</td><td>${x.last}</td></tr>`).join('')||'<tr><td colspan="9" class="mute">No customers match.</td></tr>'}</tbody></table></div>`}
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();$('#gs')?.focus()}if(e.key==='Escape')closeM()});
+showLogin();
+</script></body></html>
